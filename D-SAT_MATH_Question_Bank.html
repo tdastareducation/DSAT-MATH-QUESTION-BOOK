@@ -339,6 +339,11 @@ body.solopen{overflow:hidden}
 .spr{display:flex;flex-direction:column;gap:8px;max-width:460px}
 .spr label{font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .sprrow{display:flex;gap:10px}
+.spr,.sprrow{position:relative;z-index:8}
+.sprrow input,.solin{touch-action:manipulation;-webkit-user-select:text;user-select:text}
+.solform{grid-column:1/-1;display:flex;gap:8px;align-items:center}
+.solform .solin{flex:1;min-width:0;max-width:340px;width:100%}
+.solok{border:0;border-radius:12px;background:var(--accent);color:#fff;font:inherit;font-weight:800;padding:9px 14px;cursor:pointer}
 .sprrow input{flex:1;min-width:0;font:inherit;font-size:22px;font-weight:800;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:transparent;color:var(--ink);letter-spacing:.04em}
 .sprrow input:focus{outline:none;border-color:var(--accent)}
 .sprrow input.correct{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
@@ -1488,7 +1493,7 @@ function renderQ(i){
   const head=`<div class="qhead"><div class="qnum">${q.tn}</div><div class="qmeta"><div class="testlbl">${tLbl(t).toUpperCase()}${q.spr?" · GRID-IN":""}</div><div class="qbar"></div></div>
      <div class="topic"><div class="tname">${q.topic}</div><div class="stars" title="Difficulty ${q.d} / 5">${stars(q.d)}</div></div></div>`;
   const answerUI = q.spr
-    ? `<div class="spr"><label for="sprIn">Your answer</label><div class="sprrow"><input id="sprIn" inputmode="decimal" autocomplete="off" spellcheck="false" maxlength="8" placeholder="e.g. 3/4 or 0.75"><button class="btn" id="sprGo">✔ Check</button></div>
+    ? `<div class="spr"><label for="sprIn">Your answer</label><form class="sprrow" id="sprForm" action="#" onsubmit="return false"><input id="sprIn" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="8" placeholder="e.g. 3/4 or 0.75"><button class="btn" id="sprGo" type="submit">✔ Check</button></form>
        <div class="sprnote" id="sprNote">Student-produced response: enter a number, a fraction (like 5/2) or a decimal — no units, %, $ or commas.</div></div>`
     : `<div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}"><span class="l">${L[j]}</span><span>${o}</span></button>`).join("")}</div>`;
   pageEl.innerHTML=head+`<div class="qtools noprint"><button class="btn alt sm" data-go="${posOfHome(t)}" title="Test home: all questions and filters">⌂ Test home</button><button class="btn alt sm flagbtn${flags[i]?" on":""}" id="flagBtn">${flags[i]?"⚑ Flagged":"⚐ Flag for review"}</button></div>
@@ -1520,7 +1525,8 @@ function renderQ(i){
     if(q.spr){const inp=document.getElementById("sprIn"),note=document.getElementById("sprNote");
       const check=()=>{const v=inp.value.trim();if(!v){inp.focus();return}
         if(isNaN(numVal(v))){note.innerHTML="<b style='color:var(--bad)'>Please enter a number, a fraction like 5/2, or a decimal like 2.5.</b>";inp.focus();return}answer(v)};
-      document.getElementById("sprGo").onclick=check;inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();check()}});}
+      document.getElementById("sprForm").addEventListener("submit",e=>{e.preventDefault();const v=inp.value.trim();if(v&&!isNaN(numVal(v)))inp.blur();check()});
+      inp.addEventListener("focus",()=>setTimeout(()=>inp.scrollIntoView({block:"center",behavior:"smooth"}),350));}
     else pageEl.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.j));
   }
   document.getElementById("showSol").onclick=(e)=>{ const on=document.getElementById("sol").classList.toggle("show"); e.currentTarget.textContent = on?"📖 Hide solution":"📖 Show solution"; };
@@ -2513,8 +2519,8 @@ const SOLP=(()=>{
   document.getElementById('solPrev').disabled=k<=0;document.getElementById('solNext').disabled=k>=ids.length-1;
   const fb=document.getElementById('solFlag');fb.classList.toggle('on',!!flags[qi]);fb.textContent=flags[qi]?'⚑ Flagged':'⚐ Flag';
   qbox.innerHTML=`<div class="qh">${tLbl(t)} · Question ${q.tn}</div>`+(q.fig?`<div class="fig">${q.fig}</div>`:'')+`<div class="qtext">${q.q}</div>`;
-  if(q.spr){abox.innerHTML=`<input class="solin" id="solIn" inputmode="decimal" autocomplete="off" maxlength="8" placeholder="Type your answer, then Enter (e.g. 5/2)" ${done?'disabled':''} value="${done?esc(picks[qi]):''}"><div class="done">${done?(isOK(q,picks[qi])?'✔ Correct':'✘ Key: '+esc(fmtKey(q))):'Fraction or decimal · press Enter to check it.'}</div>`;
-   const inp=abox.querySelector('input');inp.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const v=inp.value.trim();if(!v||isNaN(numVal(v)))return;if(qStart){times[qi]=(times[qi]||0)+(Date.now()-qStart);qStart=null}picks[qi]=v;save();updScore();fill()})}
+  if(q.spr){abox.innerHTML=`<form class="solform" action="#" onsubmit="return false"><input class="solin" id="solIn" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="8" placeholder="Type your answer (e.g. 5/2)" ${done?'disabled':''} value="${done?esc(picks[qi]):''}">${done?'':'<button type="submit" class="solok">✔ Check</button>'}</form><div class="done">${done?(isOK(q,picks[qi])?'✔ Correct':'✘ Key: '+esc(fmtKey(q))):'Fraction or decimal · tap ✔ Check or the Done key on your keyboard.'}</div>`;
+   const inp=abox.querySelector('input');abox.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const v=inp.value.trim();if(!v||isNaN(numVal(v))){inp.focus();return}inp.blur();if(qStart){times[qi]=(times[qi]||0)+(Date.now()-qStart);qStart=null}picks[qi]=v;save();updScore();fill()})}
   else{abox.innerHTML=q.o.map((o,j)=>`<button data-j="${j}" class="${done&&j===q.a?'ok':''} ${done&&picks[qi]===j&&j!==q.a?'bad sel':''}" ${done?'disabled':''}><span class="l">${L[j]}</span><span>${o}</span></button>`).join('')+(done?`<div class="done">${isOK(q,picks[qi])?'✔ Correct':'✘ The correct answer is '+L[q.a]} · the solution is open in the book.</div>`:'')}
   if(typeof math==='function'){math(qbox);math(abox)}
   if(q.spr)FRAC.dom(abox.querySelector('.done'));
