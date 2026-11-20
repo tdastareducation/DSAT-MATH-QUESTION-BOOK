@@ -594,6 +594,33 @@ body.solopen{overflow:hidden}
 header .brand{display:flex;align-items:center;gap:8px}
 header .brand .tdlogo{height:22px}
 .themeb{font-size:15px}
+.themesw{display:inline-flex;align-items:center;gap:2px;height:36px;padding:3px;border-radius:999px;border:1px solid var(--line);background:var(--paper);cursor:pointer;flex:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.themesw span{display:grid;place-items:center;width:30px;height:28px;border-radius:999px;font-size:15px;line-height:1;opacity:.45;transition:background .2s,opacity .2s}
+:root:not([data-theme="dark"]) .themesw .tl,:root[data-theme="dark"] .themesw .td{opacity:1;background:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.mnth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.mnth>span{font-weight:800;font-size:14px;color:var(--ink)}
+.mnth .seg{display:inline-flex;gap:4px;padding:3px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.mnth .seg button{border:0;background:transparent;color:var(--ink);font-weight:800;font-size:13.5px;padding:8px 14px;border-radius:999px;cursor:pointer;touch-action:manipulation;font-family:inherit}
+.mnth .seg button.on{background:var(--accent);color:#fff}
+@media(max-width:420px){header .brand span{font-size:13.5px}.hbtns{gap:5px}}
+@media(max-width:360px){header .brand span{display:none}}
+.themesw.solsw{height:32px;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35)}
+.themesw.solsw span{width:27px;height:24px;font-size:13.5px}
+:root:not([data-theme="dark"]) .solsw .tl,:root[data-theme="dark"] .solsw .td{background:#fff}
+:root[data-theme="dark"] .solp{background:#15171d;color:#eceef4}
+:root[data-theme="dark"] .solsheet{background-color:#1b1e26;background-image:linear-gradient(#2a3140 1px,transparent 1px),linear-gradient(90deg,#2a3140 1px,transparent 1px)}
+:root[data-theme="dark"] .solq{background:rgba(31,34,43,.95);color:#eceef4}
+:root[data-theme="dark"] .solq .fig text{fill:#eceef4}
+:root[data-theme="dark"] .solq .fig .s{stroke:#eceef4}
+:root[data-theme="dark"] .solq .dt th,:root[data-theme="dark"] .solq .dt td{border-color:#3a4050}
+:root[data-theme="dark"] .solans{background:#1f222b;border-top-color:#2f3442;color:#eceef4}
+:root[data-theme="dark"] .sola-l{color:#9db8ff}
+:root[data-theme="dark"] .sola button{background:#262a35;border-color:#3a4050;color:#eceef4}
+:root[data-theme="dark"] .sola button.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .sola button.ok{background:#163a28;border-color:#1f9d5b}
+:root[data-theme="dark"] .sola button.bad{background:#47202a;border-color:#d23c3c}
+:root[data-theme="dark"] .sola .done{color:#9aa0ad}
+:root[data-theme="dark"] .solin{background:#262a35;border-color:#3a4050;color:#eceef4}
 .tmr{font-weight:800;font-size:14px;background:var(--paper);border:1px solid var(--line);padding:6px 12px;border-radius:999px;cursor:pointer;font-variant-numeric:tabular-nums;color:var(--ink)}
 .tmr.warn{background:var(--bad);color:#fff;border-color:var(--bad);animation:pulse 1.2s infinite}
 .tmr.mini{padding:6px 9px}
@@ -704,7 +731,7 @@ th .fr,.exo .fr{font-size:.88em}
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <header>
   <div class="hl"><button class="menub" id="menuBtn" aria-label="Open the contents menu" aria-expanded="false" title="Contents (M)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button><div class="brand"><img class="tdlogo" src="data:image/webp;base64,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" alt="TD A* logo"><span>D-SAT MATH</span></div></div>
-  <div class="hbtns"><button class="tmr" id="tmr" hidden title="Hide the timer">⏱</button><div class="score" id="score">Total: 0 / 0</div><button class="fsb themeb" id="themeBtn" title="Dark / light mode" aria-label="Switch dark or light mode">🌙</button><button class="fsb fxb" id="fxBtn" title="Animated background on / off" aria-label="Animated background on or off">✨</button><button class="fsb" id="fsBtn" aria-label="Full screen" title="Full screen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fs-in" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><path class="fs-out" d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg></button></div>
+  <div class="hbtns"><button class="tmr" id="tmr" hidden title="Hide the timer">⏱</button><div class="score" id="score">Total: 0 / 0</div><button class="themesw" id="themeBtn" role="switch" aria-checked="false" title="Background: light / dark" aria-label="Background light or dark"><span class="tl">☀️</span><span class="td">🌙</span></button><button class="fsb fxb" id="fxBtn" title="Animated background on / off" aria-label="Animated background on or off">✨</button><button class="fsb" id="fsBtn" aria-label="Full screen" title="Full screen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fs-in" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><path class="fs-out" d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg></button></div>
 </header>
 <div class="stage">
   <main class="page" id="page" aria-live="polite"></main>
@@ -756,7 +783,7 @@ th .fr,.exo .fr{font-size:.88em}
 </div>
 <div id="solp" class="solp" hidden role="dialog" aria-label="Solution page">
  <div class="solhd"><div class="soltt"><b>✍ Solution page</b><small id="solex"></small></div><span class="solclock" id="solClock" data-clock="1" title="Time left">35:00</span>
-  <button class="solnav" id="solPrev" title="Previous question">‹ Prev</button><button class="solnav" id="solNext" title="Next question">Next ›</button><button class="solnav" id="solFlag" title="Flag for review">⚐ Flag</button><button class="solnav" id="solHome" title="Test home">⌂</button>
+  <button class="solnav" id="solPrev" title="Previous question">‹ Prev</button><button class="solnav" id="solNext" title="Next question">Next ›</button><button class="solnav" id="solFlag" title="Flag for review">⚐ Flag</button><button class="solnav" id="solHome" title="Test home">⌂</button><button class="themesw solsw" id="solTheme" role="switch" aria-checked="false" title="Background: light / dark" aria-label="Background light or dark"><span class="tl">☀️</span><span class="td">🌙</span></button>
   <button class="snaptg" id="snapTg" title="Shapes go straight to the square corners (the pen always draws freely) · dashed helper lines">📐 Grid helper: <b>ON</b></button><button class="dsbtn" id="dsBtn" aria-pressed="false" title="Open or close Calculator+"><svg viewBox="0 0 40 40" class="clogo" aria-hidden="true"><rect x="1" y="3" width="32" height="34" rx="9" fill="#2563eb"/><rect x="8" y="9" width="18" height="7" rx="2" fill="#fff"/><g fill="#fff"><circle cx="10.5" cy="22" r="2"/><circle cx="17" cy="22" r="2"/><circle cx="23.5" cy="22" r="2"/><circle cx="10.5" cy="29" r="2"/><circle cx="17" cy="29" r="2"/><circle cx="23.5" cy="29" r="2"/></g><circle cx="31" cy="9" r="8" fill="#f2a23a" stroke="#fff" stroke-width="2"/><path d="M31 5v8M27 9h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg><span>Calculator+</span></button><button class="solback" id="solback">↩ Back to the book</button></div>
  <div class="solmain">
   <div class="solscroll" id="solscroll"><div class="solsheet" id="solsheet"><div class="solq" id="solq"></div></div></div>
@@ -2564,7 +2591,7 @@ const MENU=(()=>{
  document.body.append(ov,pn);
  const st=i=>{const q=Q[i],p=picks[i];return p===undefined?'':!scored(q)?'void':isOK(q,p)?'ok':'bad'};
  function render(){const x=SEQ[cur],cT=curTest(),cU=cT?TESTS[cT-1].unit:null,all=statsOf(()=>true),nd=Object.keys(picks).length;
-  let h=`<div class="mnh">${TD_LOGO}<div><b>Contents</b><small>${nd} / ${Q.length} answered${all.max?` · ✔ ${all.c} / ${all.max}`:""}</small></div><button class="mnx" aria-label="Close menu" title="Close (Esc)">✕</button></div><div class="mnb">`;
+  let h=`<div class="mnh">${TD_LOGO}<div><b>Contents</b><small>${nd} / ${Q.length} answered${all.max?` · ✔ ${all.c} / ${all.max}`:""}</small></div><button class="mnx" aria-label="Close menu" title="Close (Esc)">✕</button></div><div class="mnb"><div class="mnth"><span>Background</span><div class="seg" role="group" aria-label="Background color"><button data-theme="light" class="${document.documentElement.dataset.theme!=='dark'?'on':''}">☀️ Light</button><button data-theme="dark" class="${document.documentElement.dataset.theme==='dark'?'on':''}">🌙 Dark</button></div></div>`;
   h+=`<button class="mni ${x.k==='cover'?'on':''}" data-go="0">🏠 Front cover</button><button class="mni ${x.k==='imprint'?'on':''}" data-go="${posOf('imprint')}">📇 Imprint</button>`;
   h+=`<details class="mng" ${x.k==='info'?'open':''}><summary>🧭 Part 0 · Exam guide</summary>`+GUIDE.map((g,n)=>`<button class="mni sub ${x.k==='info'&&x.n===n?'on':''}" data-go="${posOfInfo(n)}"><small>${g.tag}</small>${g.title}</button>`).join('')+`</details>`;
   UNITS.forEach(u=>{const inU=cU===u||((x.k==='unit'||x.k==='les')&&x.u===u);h+=`<details class="mng" ${inU?'open':''}><summary>📗 Unit ${u} · ${uName(u)}</summary>`;
@@ -2587,8 +2614,10 @@ const MENU=(()=>{
  return{open,close};
 })();
 
-(()=>{const b=document.getElementById('themeBtn');const ui=()=>{const d=document.documentElement.dataset.theme==='dark';b.textContent=d?'☀️':'🌙';b.title=d?'Light mode':'Dark mode'};ui();
- b.onclick=()=>{const d=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=d;try{localStorage.setItem('dsat-theme',d)}catch(e){}ui();if(SEQ[cur].k==='ana'||SEQ[cur].k==='res')go(cur)};
+(()=>{const b=document.getElementById('themeBtn');const ui=()=>{const d=document.documentElement.dataset.theme==='dark';b.setAttribute('aria-checked',d);const sb=document.getElementById('solTheme');if(sb)sb.setAttribute('aria-checked',d);b.title=d?'Background: dark (tap for light)':'Background: light (tap for dark)';document.querySelectorAll('.mnth .seg button').forEach(x=>x.classList.toggle('on',x.dataset.theme===(d?'dark':'light')))};ui();
+ window.setTheme=d=>{if(document.documentElement.dataset.theme===d){ui();return}document.documentElement.dataset.theme=d;try{localStorage.setItem('dsat-theme',d)}catch(e){}ui();if(SEQ[cur].k==='ana'||SEQ[cur].k==='res')go(cur)};
+ b.onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');{const sb=document.getElementById('solTheme');if(sb)sb.onclick=b.onclick}
+ document.addEventListener('click',e=>{const t=e.target.closest('.mnth .seg button');if(t){e.stopPropagation();setTheme(t.dataset.theme)}},true);
  document.getElementById('tmr').onclick=()=>{timerHidden=!timerHidden;paintTimers()};})();
 window.WB=WB;window.SOLP=SOLP;window.BGFX=BGFX;
 window.addEventListener("DOMContentLoaded",()=>{ updScore(); go(cur); });
